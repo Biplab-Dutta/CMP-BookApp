@@ -21,7 +21,7 @@ room = "2.6.1"
 kotlinSerialization = "1.8.1"
 ksp = "2.1.20-1.0.32"
 compose-navigation = "2.8.0-alpha10"
-sqlite = "2.4.0"
+sqlite = "2.5.0-rc03"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
