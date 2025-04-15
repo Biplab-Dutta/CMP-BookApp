@@ -1,6 +1,7 @@
 package com.zoroxnekko.bookapp.feature.book.presentation.book_list
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -155,60 +156,65 @@ private fun BookListScreen(
                             .fillMaxWidth()
                             .weight(1f)
                     ) { pageIndex ->
-                        when (pageIndex) {
-                            0 -> {
-                                if (state.isLoading) {
-                                    CircularProgressIndicator()
-                                } else {
-                                    when {
-                                        state.errorMessage != null -> {
-                                            Text(
-                                                text = state.errorMessage.asString(),
-                                                textAlign = TextAlign.Center,
-                                                style = MaterialTheme.typography.headlineSmall,
-                                                color = MaterialTheme.colorScheme.error,
-                                            )
-                                        }
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            when (pageIndex) {
+                                0 -> {
+                                    if (state.isLoading) {
+                                        CircularProgressIndicator()
+                                    } else {
+                                        when {
+                                            state.errorMessage != null -> {
+                                                Text(
+                                                    text = state.errorMessage.asString(),
+                                                    textAlign = TextAlign.Center,
+                                                    style = MaterialTheme.typography.headlineSmall,
+                                                    color = MaterialTheme.colorScheme.error,
+                                                )
+                                            }
 
-                                        state.searchResults.isEmpty() -> {
-                                            Text(
-                                                text = stringResource(Res.string.no_search_results),
-                                                textAlign = TextAlign.Center,
-                                                style = MaterialTheme.typography.headlineSmall,
-                                                color = MaterialTheme.colorScheme.error,
-                                            )
-                                        }
+                                            state.searchResults.isEmpty() -> {
+                                                Text(
+                                                    text = stringResource(Res.string.no_search_results),
+                                                    textAlign = TextAlign.Center,
+                                                    style = MaterialTheme.typography.headlineSmall,
+                                                    color = MaterialTheme.colorScheme.error,
+                                                )
+                                            }
 
-                                        else -> {
-                                            BookListView(
-                                                modifier = Modifier.fillMaxSize(),
-                                                books = state.searchResults,
-                                                onBookClick = {
-                                                    onAction(BookListAction.OnBookClick(it))
-                                                },
-                                                scrollState = searchResultsListState,
-                                            )
+                                            else -> {
+                                                BookListView(
+                                                    modifier = Modifier.fillMaxSize(),
+                                                    books = state.searchResults,
+                                                    onBookClick = {
+                                                        onAction(BookListAction.OnBookClick(it))
+                                                    },
+                                                    scrollState = searchResultsListState,
+                                                )
+                                            }
                                         }
                                     }
                                 }
-                            }
 
-                            1 -> {
-                                if (state.favoriteBooks.isEmpty()) {
-                                    Text(
-                                        text = stringResource(Res.string.no_favorite_books),
-                                        textAlign = TextAlign.Center,
-                                        style = MaterialTheme.typography.headlineSmall,
-                                    )
-                                } else {
-                                    BookListView(
-                                        modifier = Modifier.fillMaxSize(),
-                                        books = state.favoriteBooks,
-                                        onBookClick = {
-                                            onAction(BookListAction.OnBookClick(it))
-                                        },
-                                        scrollState = favoriteBooksListState,
-                                    )
+                                1 -> {
+                                    if (state.favoriteBooks.isEmpty()) {
+                                        Text(
+                                            text = stringResource(Res.string.no_favorite_books),
+                                            textAlign = TextAlign.Center,
+                                            style = MaterialTheme.typography.headlineSmall,
+                                        )
+                                    } else {
+                                        BookListView(
+                                            modifier = Modifier.fillMaxSize(),
+                                            books = state.favoriteBooks,
+                                            onBookClick = {
+                                                onAction(BookListAction.OnBookClick(it))
+                                            },
+                                            scrollState = favoriteBooksListState,
+                                        )
+                                    }
                                 }
                             }
                         }
