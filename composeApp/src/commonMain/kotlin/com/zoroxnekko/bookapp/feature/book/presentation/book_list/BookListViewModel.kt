@@ -50,7 +50,11 @@ class BookListViewModel(
                 }
             }
 
-            is BookListAction.OnTabSelected -> {}
+            is BookListAction.OnTabSelected -> {
+                _state.update {
+                    it.copy(selectedTabIndex = action.index)
+                }
+            }
         }
     }
 
